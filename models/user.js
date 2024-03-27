@@ -15,8 +15,18 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  createdEvents: [{ type: Schema.Types.ObjectId, ref: "Event" }],
-  registeredEvents: [{ type: Schema.Types.ObjectId, ref: "Event" }]
+  createdEvents: [{ type: mongoose.Schema.Types.ObjectId, ref: "Event" }],
+  registeredEvents: [{
+    event: { type: mongoose.Schema.Types.ObjectId, ref: "Event" },
+    attended: {
+      type: Boolean,
+      default: false
+    },
+    certificateReceived: {
+      type: Boolean,
+      default: false
+    }
+  }]
 });
 
 const User = mongoose.model('User', userSchema);

@@ -7,7 +7,7 @@ const eventSchema = new mongoose.Schema({
   },
   type: {
     type: String,
-    enum: ["", "", ], // Tipos de eventos 
+    enum: ["", "", ], 
   },
   description: {
     type: String,
@@ -22,13 +22,32 @@ const eventSchema = new mongoose.Schema({
     ref: 'User'
   },
   participants: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  }]
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
+    },
+    attended: {
+      type: Boolean,
+      default: false
+    },
+    certificateSent: {
+      type: Boolean,
+      default: false
+    },
+    certificateSentDate: {
+      type: Date
+    }
+  }],
+  coverImage: {
+    data: Buffer, 
+    contentType: String 
+  },
 });
-EventSchema.virtual("url").get(function () {
-    return `/events/${this._id}`;
-  });
+
+
+eventSchema.virtual("url").get(function () {
+  return `/events/${this._id}`;
+});
 
 const Event = mongoose.model('Event', eventSchema);
 
