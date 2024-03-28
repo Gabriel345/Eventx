@@ -1,12 +1,23 @@
 const User = require('../models/user');
+const createError = require('http-errors');
 
 // Função para criar um novo usuário
 exports.createUser = async (req, res) => {
   try {
     const newUser = await User.create(req.body);
-    res.status(201).json(newUser);
+    // Redirecione o usuário para a página inicial após o registro
+    res.redirect('/');
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    if (error.code === 11000 && error.keyPattern.username) {
+      // Nome de usuário duplicado
+      return res.status(400).send({ message: 'Nome de usuário já em uso' });
+    } else if (error.code === 11000 && error.keyPattern.email) {
+      // E-mail duplicado
+      return res.status(400).send({ message: 'Endereço de e-mail já em uso' });
+    } else {
+      // Outro erro
+      return res.status(500).send({ message: error.message });
+    }
   }
 };
 
