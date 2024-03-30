@@ -5,10 +5,13 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const connectDB = require("./config");
 var userController = require("./controller/userController");
+const upload = require('./multerConfig')
 
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var eventRouter = require('./routes/events');
+var loginRouter = require('./routes/login');
 
 connectDB();
 var app = express();
@@ -23,8 +26,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/events', upload.single('coverImage'), eventRouter);
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/events', eventRouter);
+app.use('/login', loginRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

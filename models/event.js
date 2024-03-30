@@ -7,7 +7,7 @@ const eventSchema = new mongoose.Schema({
   },
   type: {
     type: String,
-    enum: ["", "", ], 
+    enum: ["online", "presencial"], 
   },
   description: {
     type: String,
@@ -39,9 +39,9 @@ const eventSchema = new mongoose.Schema({
     }
   }],
   coverImage: {
-    data: Buffer, 
-    contentType: String 
-  },
+    type: String, 
+    required: true 
+  }
 });
 
 
