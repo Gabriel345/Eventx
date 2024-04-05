@@ -5,7 +5,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const connectDB = require("./config");
 var userController = require("./controller/userController");
-const upload = require('./multerConfig')
+const upload = require('./multerConfig');
+const sessionMiddleware = require('./middlewares/sessionMiddleware');
 
 
 var indexRouter = require('./routes/index');
@@ -25,6 +26,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(sessionMiddleware);
 
 app.use('/events', upload.single('coverImage'), eventRouter);
 

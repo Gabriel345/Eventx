@@ -5,6 +5,8 @@ const createError = require('http-errors');
 exports.createUser = async (req, res) => {
   try {
     const newUser = await User.create(req.body);
+
+    req.session.userId = newUser._id;
    
     res.redirect('/');
   } catch (error) {

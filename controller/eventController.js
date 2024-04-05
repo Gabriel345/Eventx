@@ -2,32 +2,37 @@ const Event = require('../models/event');
 
 
 exports.createEvent = async (req, res) => {
-    try {
-        const { title, type, description, date,} = req.body;
+  try {
+      const { title, type, description, date } = req.body;
 
-        
-        if (!req.file) {
+      // Verificar se o usuário está autenticado
+      if (!req.session.userId) {
+          return res.status(401).json({ message: 'Usuário não autenticado' });
+      }
+
+      // Verificar se a imagem de capa foi enviada
+      if (!req.file) {
           return res.status(400).json({ message: 'Imagem de capa não enviada' });
       }
 
       const coverImagePath = req.file.path;
-      
+    
       const organizer = req.session.userId;
 
-        const newEvent = new Event({
-            title,
-            type,
-            description,
-            date,
-            organizer,
-            coverImage: coverImagePath
-        });
-        await newEvent.save();
+      const newEvent = new Event({
+          title,
+          type,
+          description,
+          date,
+          organizer,
+          coverImage: coverImagePath
+      });
+      await newEvent.save();
 
-        res.status(201).json(newEvent);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
+      res.status(201).json(newEvent);
+  } catch (error) {
+      res.status(500).json({ message: error.message });
+  }
 };
 exports.getAllEvents = async (req, res) => {
   try {

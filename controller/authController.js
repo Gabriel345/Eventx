@@ -1,7 +1,6 @@
 const User = require('../models/user');
 const createError = require('http-errors');
 
-
 exports.login = async (req, res) => {
     const { username, password } = req.body;
   
@@ -17,5 +16,4 @@ exports.login = async (req, res) => {
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
-
-  };
+};
