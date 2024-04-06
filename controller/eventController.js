@@ -29,7 +29,8 @@ exports.createEvent = async (req, res) => {
       });
       await newEvent.save();
 
-      res.status(201).json(newEvent);
+      
+      res.redirect('/');
   } catch (error) {
       res.status(500).json({ message: error.message });
   }

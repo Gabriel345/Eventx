@@ -2,27 +2,26 @@ const User = require('../models/user');
 const createError = require('http-errors');
 
 
+const bcrypt = require('bcrypt');
+
 exports.createUser = async (req, res) => {
   try {
-    const newUser = await User.create(req.body);
+    const { username, email, password } = req.body;
+    
+    // Gerar hash da senha
+    const saltRounds = 10;
+    const passwordHash = await bcrypt.hash(password, saltRounds);
+
+    // Criar o novo usuário com o hash da senha
+    const newUser = await User.create({ username, email, passwordHash });
 
     req.session.userId = newUser._id;
    
     res.redirect('/');
   } catch (error) {
-    if (error.code === 11000 && error.keyPattern.username) {
-      
-      return res.status(400).send({ message: 'Nome de usuário já em uso' });
-    } else if (error.code === 11000 && error.keyPattern.email) {
-      
-      return res.status(400).send({ message: 'Endereço de e-mail já em uso' });
-    } else {
-      
-      return res.status(500).send({ message: error.message });
-    }
+    // Tratar erros
   }
 };
-
 
 exports.getAllUsers = async (req, res) => {
   try {
