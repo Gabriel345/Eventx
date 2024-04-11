@@ -1,4 +1,6 @@
 const Event = require('../models/event');
+const path = require('path');
+
 
 
 exports.createEvent = async (req, res) => {
@@ -15,7 +17,7 @@ exports.createEvent = async (req, res) => {
           return res.status(400).json({ message: 'Imagem de capa não enviada' });
       }
 
-      const coverImagePath = req.file.path;
+      const coverImagePath = path.relative(path.join(__dirname, '..', 'public', 'uploads'), req.file.path);
     
       const organizer = req.session.userId;
 
@@ -73,6 +75,18 @@ exports.deleteEvent = async (req, res) => {
       return res.status(404).json({ message: 'Evento não encontrado' });
     }
     res.status(200).json({ message: 'Evento excluído com sucesso' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+exports.getRecentEvents = async (req, res) => {
+  try {
+    // Recupere os eventos do banco de dados e ordene por data em ordem decrescente
+    const events = await Event.find().sort({ date: -1 }).limit(3);
+
+    // Renderize a visualização do carrossel passando os eventos para exibir
+    res.render('carousel', { events });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
