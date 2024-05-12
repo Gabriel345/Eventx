@@ -102,3 +102,37 @@ exports.getEventDetails = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+exports.registerForEvent = async (req, res) => {
+  try {
+    const eventId = req.params.eventId;
+    const userId = req.session.userId;
+
+    // Verificar se o usuário está autenticado
+    if (!userId) {
+      return res.status(401).json({ message: 'Usuário não autenticado' });
+    }
+
+    // Encontrar o evento pelo ID
+    const event = await Event.findById(eventId);
+
+    // Verificar se o evento existe
+    if (!event) {
+      return res.status(404).json({ message: 'Evento não encontrado' });
+    }
+
+    // Verificar se o usuário já está registrado para o evento
+    const alreadyRegistered = event.participants.some(participant => participant.user.equals(userId));
+    if (alreadyRegistered) {
+      return res.status(400).json({ message: 'Usuário já registrado para este evento' });
+    }
+
+    // Registrar o usuário para o evento
+    event.participants.push({ user: userId });
+    await event.save();
+
+    res.status(200).json({ message: 'Usuário registrado com sucesso para o evento' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

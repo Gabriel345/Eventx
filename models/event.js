@@ -7,7 +7,7 @@ const eventSchema = new mongoose.Schema({
   },
   type: {
     type: String,
-    enum: ["online", "presencial"], 
+    enum: ["online", "presencial"]
   },
   description: {
     type: String,
@@ -39,11 +39,10 @@ const eventSchema = new mongoose.Schema({
     }
   }],
   coverImage: {
-    type: String, 
-    required: true 
+    type: String,
+    required: true
   }
 });
-
 
 eventSchema.virtual("url").get(function () {
   return `/events/${this._id}`;

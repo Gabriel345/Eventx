@@ -13,11 +13,12 @@ const userSchema = new mongoose.Schema({
     unique: true
   },
   passwordHash: {
-    type: String, // Armazenará o hash da senha
+    type: String,
     required: true
   },
   createdEvents: [{ type: mongoose.Schema.Types.ObjectId, ref: "Event" }],
-  registeredEvents: [{
+  registeredEvents: [{ type: mongoose.Schema.Types.ObjectId, ref: "Event" }],
+  attendanceRecords: [{
     event: { type: mongoose.Schema.Types.ObjectId, ref: "Event" },
     attended: {
       type: Boolean,

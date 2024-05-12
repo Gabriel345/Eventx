@@ -11,6 +11,9 @@
   <p><strong>Tipo:</strong> <%= event.type %></p>
   <p><strong>Descrição:</strong> <%= event.description %></p>
   <p><strong>Data:</strong> <%= event.date.toDateString() %></p>
-  
+  <!-- Formulário para registro de usuário no evento -->
+  <form action="/events/<%= event._id %>/register" method="POST">
+    <button type="submit">Registrar-se para este evento</button>
+  </form>
 </body>
 </html>
