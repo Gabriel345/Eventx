@@ -3,7 +3,12 @@
 <h2>Eventos Criados:</h2>
 <ul>
     <% userEvents.forEach(event => { %>
-        <li><%= event.title %></li>
-        <a href="/events/<%= event._id %>/edit" class="btn btn-primary">Editar</a>
+        <li>
+            <%= event.title %>
+            <a href="/events/<%= event._id %>/edit" class="btn btn-primary">Editar</a>
+            <form action="/events/<%= event._id %>/delete" method="POST" style="display: inline;">
+                <button type="submit" class="btn btn-danger">Excluir Evento</button>
+            </form>
+        </li>
     <% }); %>
 </ul>

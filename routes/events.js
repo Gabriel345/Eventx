@@ -26,4 +26,6 @@ router.get('/:id/edit', EventController.renderEditEventPage);
 // Rota para manipular a edição de evento
 router.post('/:id/edit', EventController.editEvent);
 
+router.post('/:id/delete', EventController.deleteEvent);
+
 module.exports = router;

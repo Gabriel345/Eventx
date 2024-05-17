@@ -91,18 +91,21 @@ exports.editEvent = async (req, res) => {
       res.status(500).json({ message: error.message });
   }
 };
+
 exports.deleteEvent = async (req, res) => {
   try {
     const deletedEvent = await Event.findByIdAndDelete(req.params.id);
     if (!deletedEvent) {
-      return res.status(404).json({ message: 'Evento não encontrado' });
+      // Se o evento não for encontrado, redirecione para a página de perfil
+      return res.redirect('/profile');
     }
-    res.status(200).json({ message: 'Evento excluído com sucesso' });
+    // Se a exclusão for bem-sucedida, redirecione para a página de perfil
+    return res.redirect('/profile');
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    // Em caso de erro, redirecione para a página de perfil
+    return res.redirect('/profile');
   }
 };
-
 exports.getRecentEvents = async (req, res) => {
   try {
     // Recupere os eventos do banco de dados e ordene por data em ordem decrescente
