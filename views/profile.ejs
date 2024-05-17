@@ -1,0 +1,8 @@
+<h1>Perfil de <%= user.username %></h1>
+
+<h2>Eventos Criados:</h2>
+<ul>
+    <% userEvents.forEach(event => { %>
+        <li><%= event.title %></li>
+    <% }); %>
+</ul>

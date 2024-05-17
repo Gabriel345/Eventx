@@ -1,5 +1,7 @@
 const User = require('../models/user');
 const createError = require('http-errors');
+const Event = require('../models/event');
+
 
 
 const bcrypt = require('bcrypt');
@@ -29,6 +31,31 @@ exports.getAllUsers = async (req, res) => {
     res.status(200).json(users);
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+};
+
+exports.getUserProfile = async (req, res) => {
+  try {
+      // Verificar se o usuário está autenticado
+      if (!req.session.userId) {
+          return res.redirect('/login');
+      }
+
+      // Encontrar o usuário pelo ID
+      const user = await User.findById(req.session.userId);
+
+      // Verificar se o usuário existe
+      if (!user) {
+          return res.status(404).json({ message: 'Usuário não encontrado' });
+      }
+
+      // Encontrar os eventos criados pelo usuário
+      const userEvents = await Event.find({ organizer: req.session.userId });
+
+      // Renderizar a página de perfil com os eventos criados pelo usuário
+      res.render('profile', { user, userEvents });
+  } catch (error) {
+      res.status(500).json({ message: error.message });
   }
 };
 

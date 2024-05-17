@@ -13,6 +13,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var eventRouter = require('./routes/events');
 var loginRouter = require('./routes/login');
+var profileRouter = require('./routes/profile');
 
 connectDB();
 var app = express();
@@ -34,6 +35,8 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/events', eventRouter);
 app.use('/login', loginRouter);
+app.use('/profile', profileRouter);
+
 
 
 // catch 404 and forward to error handler
