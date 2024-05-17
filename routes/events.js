@@ -21,4 +21,9 @@ router.get('/:id', EventController.getEventDetails);
 // Rota para permitir que um usuário se registre para um evento
 router.post('/:eventId/register', EventController.registerForEvent);
 
+router.get('/:id/edit', EventController.renderEditEventPage);
+
+// Rota para manipular a edição de evento
+router.post('/:id/edit', EventController.editEvent);
+
 module.exports = router;

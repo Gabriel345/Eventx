@@ -68,6 +68,29 @@ exports.updateEvent = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+exports.renderEditEventPage = async (req, res) => {
+  try {
+      // Encontre o evento pelo ID fornecido na rota
+      const event = await Event.findById(req.params.id);
+
+      // Renderize a página de edição de evento, passando o evento encontrado
+      res.render('editEvent', { event });
+  } catch (error) {
+      res.status(500).json({ message: error.message });
+  }
+};
+
+exports.editEvent = async (req, res) => {
+  try {
+      // Encontre o evento pelo ID fornecido na rota e atualize suas informações com os dados do corpo da requisição
+      const updatedEvent = await Event.findByIdAndUpdate(req.params.id, req.body, { new: true });
+
+      // Renderize a página de perfil ou redirecione para outra página após a edição
+      res.redirect('/profile');
+  } catch (error) {
+      res.status(500).json({ message: error.message });
+  }
+};
 exports.deleteEvent = async (req, res) => {
   try {
     const deletedEvent = await Event.findByIdAndDelete(req.params.id);
