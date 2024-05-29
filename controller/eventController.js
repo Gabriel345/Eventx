@@ -123,7 +123,8 @@ exports.getEventDetails = async (req, res) => {
     if (!event) {
       return res.status(404).json({ message: 'Evento não encontrado' });
     }
-    res.render('event-details', { event }); // Renderiza uma view com os detalhes do evento
+    const userId = req.session.userId;
+    res.render('event-details', { event, userId }); // Renderiza uma view com os detalhes do evento
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
