@@ -1,5 +1,6 @@
 <h1>Perfil de <%= user.username %></h1>
 
+<!-- Seção de Eventos Criados -->
 <h2>Eventos Criados:</h2>
 <ul>
     <% userEvents.forEach(event => { %>
@@ -9,6 +10,17 @@
             <form action="/events/<%= event._id %>/delete" method="POST" style="display: inline;">
                 <button type="submit" class="btn btn-danger">Excluir Evento</button>
             </form>
+        </li>
+    <% }); %>
+</ul>
+
+<!-- Seção de Eventos Cadastrados -->
+<h2>Eventos Cadastrados:</h2>
+<ul>
+    <% registeredEvents.forEach(event => { %>
+        <li>
+            <%= event.title %>
+            <!-- Adicione quaisquer outras informações do evento que deseja exibir -->
         </li>
     <% }); %>
 </ul>

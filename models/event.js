@@ -1,13 +1,14 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const eventSchema = new mongoose.Schema({
+const eventSchema = new Schema({
   title: {
     type: String,
     required: true
   },
   type: {
     type: String,
-    enum: ["online", "presencial"]
+    required: true
   },
   description: {
     type: String,
@@ -18,34 +19,23 @@ const eventSchema = new mongoose.Schema({
     required: true
   },
   organizer: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
+    type: Schema.Types.ObjectId,
+    ref: 'User', // Referenciando o modelo de usuário
+    required: true
   },
-  participants: [{
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User'
-    },
-    attended: {
-      type: Boolean,
-      default: false
-    },
-    certificateSent: {
-      type: Boolean,
-      default: false
-    },
-    certificateSentDate: {
-      type: Date
-    }
-  }],
   coverImage: {
     type: String,
     required: true
-  }
-});
-
-eventSchema.virtual("url").get(function () {
-  return `/events/${this._id}`;
+  },
+  participants: [
+    {
+      user: {
+        type: Schema.Types.ObjectId,
+        ref: 'User', // Referenciando o modelo de usuário
+        required: true
+      }
+    }
+  ]
 });
 
 const Event = mongoose.model('Event', eventSchema);

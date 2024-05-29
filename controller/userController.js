@@ -52,26 +52,15 @@ exports.getUserProfile = async (req, res) => {
       // Encontrar os eventos criados pelo usuário
       const userEvents = await Event.find({ organizer: req.session.userId });
 
-      // Renderizar a página de perfil com os eventos criados pelo usuário
-      res.render('profile', { user, userEvents });
+      // Encontrar os eventos cadastrados pelo usuário
+      const registeredEvents = await Event.find({ 'participants.user': req.session.userId });
+
+      // Renderizar a página de perfil com os eventos criados e cadastrados pelo usuário
+      res.render('profile', { user, userEvents, registeredEvents });
   } catch (error) {
       res.status(500).json({ message: error.message });
   }
 };
-
-
-exports.getUserById = async (req, res) => {
-  try {
-    const user = await User.findById(req.params.id);
-    if (!user) {
-      return res.status(404).json({ message: 'Usuário não encontrado' });
-    }
-    res.status(200).json(user);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
 
 exports.updateUser = async (req, res) => {
   try {
