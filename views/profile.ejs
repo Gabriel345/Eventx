@@ -1,26 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Navbar Responsiva com Bootstrap</title>
+  <!-- Adicionando Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./stylesheets/style.css">
+ 
+</head>
+<body>
+    <%- include('navbar.ejs') %>
+    <div class="container">
+
+    
 <h1>Perfil de <%= user.username %></h1>
 
 <!-- Seção de Eventos Criados -->
 <h2>Eventos Criados:</h2>
-<ul>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Título do Evento</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
     <% userEvents.forEach(event => { %>
-        <li>
-            <%= event.title %>
-            <a href="/events/<%= event._id %>/edit" class="btn btn-primary">Editar</a>
-            <form action="/events/<%= event._id %>/delete" method="POST" style="display: inline;">
-                <button type="submit" class="btn btn-danger">Excluir Evento</button>
-            </form>
-        </li>
+      <tr>
+        <td><%= event.title %></td>
+        <td>
+          <a href="/events/<%= event._id %>/edit" class="btn btn-primary">Editar</a>
+          <form action="/events/<%= event._id %>/delete" method="POST" style="display: inline;">
+            <button type="submit" class="btn btn-danger">Excluir Evento</button>
+          </form>
+        </td>
+      </tr>
     <% }); %>
-</ul>
+  </tbody>
+</table>
 
 <!-- Seção de Eventos Cadastrados -->
 <h2>Eventos Cadastrados:</h2>
-<ul>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Título do Evento</th>
+      <!-- Adicione quaisquer outras colunas que deseja exibir -->
+    </tr>
+  </thead>
+  <tbody>
     <% registeredEvents.forEach(event => { %>
-        <li>
-            <%= event.title %>
-            <!-- Adicione quaisquer outras informações do evento que deseja exibir -->
-        </li>
+      <tr>
+        <td><%= event.title %></td>
+        <!-- Adicione quaisquer outras informações do evento que deseja exibir -->
+      </tr>
     <% }); %>
-</ul>
+  </tbody>
+</table>
+</div>
+
+</body>
+</html>
