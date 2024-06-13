@@ -70,13 +70,19 @@ exports.updateEvent = async (req, res) => {
 };
 exports.renderEditEventPage = async (req, res) => {
   try {
-      // Encontre o evento pelo ID fornecido na rota
-      const event = await Event.findById(req.params.id);
+    // Encontre o evento pelo ID fornecido na rota
+    const event = await Event.findById(req.params.id);
+    
+    // Verifique se o usuário está autenticado
+    const userId = req.session.userId;
+    if (!userId) {
+      return res.status(401).json({ message: 'Usuário não autenticado' });
+    }
 
-      // Renderize a página de edição de evento, passando o evento encontrado
-      res.render('editEvent', { event });
+    // Renderize a página de edição de evento, passando o evento encontrado e o userId
+    res.render('editEvent', { event, userId });
   } catch (error) {
-      res.status(500).json({ message: error.message });
+    res.status(500).json({ message: error.message });
   }
 };
 
