@@ -3,16 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Navbar Responsiva com Bootstrap</title>
+  <title>Eventx</title>
   <!-- Adicionando Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="./stylesheets/style.css">
- 
+ <style>
+   h1{
+     text-align:center;
+   }
+ </style>
 </head>
 <body>
 
   <%- include('navbar.ejs') %>
 <main>
+  
   <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
       <% events.forEach((event, index) => { %>
@@ -35,7 +40,7 @@
       <span class="sr-only">Próximo</span>
     </a>
   </div>
- 
+        <h1>Nossos Eventos</h1>
   <div class="container">
     <div class="row">
       <% events.forEach(event => { %>
@@ -61,7 +66,7 @@
     </div>
   </div>
 </main>
-<footer class="footer bg-dark text-light">
+        <footer class="footer bg-primary text-light" style="background-color: #638ecb !important;">
   <div class="container">
     <div class="row">
       <div class="col">
