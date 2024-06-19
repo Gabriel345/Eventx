@@ -1,36 +1,40 @@
 <!-- navbar.ejs -->
-                          <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #638ecb;">
-                          <a class="navbar-brand d-flex align-items-center" href="/">
-                            <span style="color: white;">Event</span>
-                            <img src="/img/logo.png" width="70" height="70" class="d-inline-block align-top ml-2" alt="Logo">
-                          </a>
-                          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                          </button>
-                          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav ml-auto">
-                              <% if (userId) { %>
-                                <li class="nav-item">
-                                  <a class="nav-link btn btn-primary" href="/events/create" role="button" style="color: white;">Criar evento</a>
-                                </li>
-                                <li class="nav-item">
-                                  <a class="nav-link" href="/profile" style="color: white;">Perfil</a>
-                                </li>
-                              <% } %>
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #638ecb;">
+  <div class="container"> <!-- Envolver todo o conteúdo da navbar em um container -->
+    <a class="navbar-brand d-flex align-items-center mr-auto" href="/"> <!-- Utilizar mr-auto para alinhar à esquerda -->
+      <span style="color: white;">Event</span>
+      <img src="/img/logo.png" width="70" height="70" class="d-inline-block align-top ml-2" alt="Logo">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto"> <!-- Utilizar ml-auto para alinhar à direita -->
+        <li class="nav-item active mr-3">
+          <a class="nav-link" href="/" style="color: white;">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <% if (userId) { %>
+          <li class="nav-item mr-3">
+            <a class="nav-link btn btn-primary" href="/events/create" role="button" style="color: white;">Criar evento</a>
+          </li>
+          <li class="nav-item mr-3">
+            <a class="nav-link" href="/profile" style="color: white;">Perfil</a>
+          </li>
+        <% } %>
 
-                              <li class="nav-item active">
-                                <a class="nav-link" href="/" style="color: white;">Home <span class="sr-only">(current)</span></a>
-                              </li>
+        
 
-                              <% if (userId) { %>
-                                <li class="nav-item">
-                                  <a class="nav-link" href="/logout" style="color: white;">Logout</a>
-                                </li>
-                              <% } else { %>
-                                <li class="nav-item">
-                                  <a class="nav-link" href="/users/register" style="color: white;">Registrar</a>
-                                </li>
-                              <% } %>
-                            </ul>
-                          </div>
-                        </nav>
+        <% if (userId) { %>
+          <li class="nav-item mr-3">
+            <a class="nav-link" href="/logout" style="color: white;">Logout</a>
+          </li>
+        <% } else { %>
+          <li class="nav-item mr-3">
+            <a class="nav-link" href="/users/register" style="color: white;">Registrar</a>
+          </li>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+</nav>
+
