@@ -11,13 +11,17 @@
    h1{
      text-align:center;
    }
+   .title-margin {
+    margin-top: 50px; 
+    margin-bottom: 40px; 
+  }
  </style>
 </head>
 <body>
 
   <%- include('navbar.ejs') %>
 <main>
-  
+  <div style="margin-top: 20px;"></div>
   <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style="max-width: 800px; margin: 0 auto;"> <!-- Definindo largura máxima e centralizando -->
     <ol class="carousel-indicators">
       <% events.forEach((event, index) => { %>
@@ -41,33 +45,34 @@
     </a>
 </div>
 
-        <h1>Nossos Eventos</h1>
-  <div class="container">
+<h1 class="title-margin">Nossos Eventos</h1>
+<div class="container">
+  <% for (let i = 0; i < events.length; i += 4) { %>
     <div class="row">
-      <% events.forEach(event => { %>
-        <div class="col-lg-4 col-md-6 mb-4">
+      <% for (let j = i; j < i + 4 && j < events.length; j++) { %>
+        <div class="col-lg-3 col-md-6 mb-4">
           <div class="card h-100 shadow-sm">
             <!-- Imagem de Capa do Evento -->
-            <img src="uploads/<%= event.coverImage %>" class="card-img-top" alt="Imagem de Capa do Evento" style="height: 200px; object-fit: cover;">
+            <img src="uploads/<%= events[j].coverImage %>" class="card-img-top" alt="Imagem de Capa do Evento" style="height: 200px; object-fit: cover;">
             <div class="card-body d-flex flex-column">
               <!-- Título do Evento -->
-              <h5 class="card-title"><%= event.title %></h5>
+              <h5 class="card-title"><%= events[j].title %></h5>
               <!-- Tipo do Evento -->
-              <p class="card-text"><strong>Tipo:</strong> <%= event.type %></p>
-              <!-- Descrição do Evento -->
-              <p class="card-text"><strong>Descrição:</strong> <%= event.description %></p>
+              <p class="card-text"><strong>Tipo:</strong> <%= events[j].type %></p>
+              
               <!-- Data do Evento -->
-              <p class="card-text"><strong>Data:</strong> <%= event.date.toDateString() %></p>
+              <p class="card-text"><strong>Data:</strong> <%= events[j].date.toDateString() %></p>
               <!-- Botão para mais detalhes -->
               <div class="mt-auto">
-                <a href="/events/<%= event._id %>" class="btn btn-primary">Detalhes</a>
+                <a href="/events/<%= events[j]._id %>" class="btn btn-primary">Detalhes</a>
               </div>
             </div>
           </div>
         </div>
-      <% }); %>
+      <% } %>
     </div>
-  </div>
+  <% } %>
+</div>
   
 </main>
         <footer class="footer bg-primary text-light" style="background-color: #638ecb !important;">
@@ -79,6 +84,7 @@
     </div>
   </div>
 </footer>
+<%- include('vlibras.ejs') %>
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
