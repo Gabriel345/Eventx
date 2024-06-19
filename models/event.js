@@ -20,7 +20,7 @@ const eventSchema = new Schema({
   },
   organizer: {
     type: Schema.Types.ObjectId,
-    ref: 'User', // Referenciando o modelo de usuário
+    ref: 'User', // Referencia o modelo User
     required: true
   },
   coverImage: {

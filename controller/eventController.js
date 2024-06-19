@@ -125,10 +125,12 @@ exports.getRecentEvents = async (req, res) => {
 };
 exports.getEventDetails = async (req, res) => {
   try {
-    const event = await Event.findById(req.params.id);
+    const event = await Event.findById(req.params.id).populate('organizer');
+    
     if (!event) {
       return res.status(404).json({ message: 'Evento não encontrado' });
     }
+    
     const userId = req.session.userId;
     res.render('event-details', { event, userId }); // Renderiza uma view com os detalhes do evento
   } catch (error) {
