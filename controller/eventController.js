@@ -171,3 +171,32 @@ exports.registerForEvent = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+exports.unregisterFromEvent = async (req, res) => {
+  try {
+    const eventId = req.params.eventId;
+    const userId = req.session.userId;
+
+    // Verificar se o usuário está autenticado
+    if (!userId) {
+      return res.status(401).json({ message: 'Usuário não autenticado' });
+    }
+
+    // Encontrar o evento pelo ID
+    const event = await Event.findById(eventId);
+
+    // Verificar se o evento existe
+    if (!event) {
+      return res.status(404).json({ message: 'Evento não encontrado' });
+    }
+
+    // Remover o usuário da lista de participantes
+    event.participants = event.participants.filter(participant => !participant.user.equals(userId));
+    await event.save();
+
+    // Redirecionar o usuário de volta para a página do evento ou para o perfil
+    res.redirect(`/events/${eventId}`);  // Substitua com a rota correta para a página de detalhes do evento
+
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

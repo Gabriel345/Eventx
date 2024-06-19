@@ -28,4 +28,6 @@ router.post('/:id/edit', EventController.editEvent);
 // Rota para excluir um evento
 router.post('/:id/delete', EventController.deleteEvent);
 
+router.post('/:eventId/unregister', EventController.unregisterFromEvent);
+
 module.exports = router;

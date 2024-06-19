@@ -3,42 +3,60 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Eventx</title>
+  <title>Eventx - Detalhes do Evento</title>
   <!-- Adicionando Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Adicionando estilo personalizado -->
   <link rel="stylesheet" href="./stylesheets/style.css">
   <style>
     /* Estilo adicional para a imagem */
     .fixed-image {
-      max-width: 400px; /* Define a largura máxima da imagem */
+      max-width: 100%; /* Utiliza toda a largura disponível */
       height: auto; /* Mantém a proporção da imagem */
+      border-radius: 5px; /* Borda arredondada para a imagem */
+      margin-bottom: 20px; /* Espaçamento inferior */
+    }
+    .card-body {
+      padding: 20px; /* Espaçamento interno */
+    }
+    .btn-margin {
+      margin-left: 10px; /* Espaçamento entre botões */
     }
   </style>
 </head>
 <body>
+  <!-- Barra de navegação -->
   <%- include('navbar.ejs') %>
 
   <div class="container">
     <div class="row">
       <div class="col-md-8 mx-auto">
         <div class="card">
-          <!-- Adiciona a classe 'fixed-image' para definir o tamanho fixo da imagem -->
+          <!-- Imagem de capa do evento -->
           <img src="/uploads/<%= event.coverImage %>" class="card-img-top fixed-image" alt="Imagem de Capa do Evento">
           <div class="card-body">
             <h5 class="card-title"><%= event.title %></h5>
             <p class="card-text"><strong>Tipo:</strong> <%= event.type %></p>
             <p class="card-text"><strong>Descrição:</strong> <%= event.description %></p>
             <p class="card-text"><strong>Data:</strong> <%= event.date.toDateString() %></p>
+            
             <% if (userId) { %>
               <% if (event.participants.some(participant => participant.user.equals(userId))) { %>
-                <button type="button" class="btn btn-success disabled">Você está registrado neste evento</button>
+                <!-- Botão desabilitado se o usuário estiver registrado -->
+                <button type="button" class="btn btn-success btn-margin disabled float-right">Você está registrado neste evento</button>
+                <!-- Formulário para cancelar inscrição -->
+                <form action="/events/<%= event._id %>/unregister" method="POST" class="float-right">
+                  <button type="submit" class="btn btn-danger btn-margin">Cancelar Inscrição</button>
+                </form>
               <% } else { %>
-                <form action="/events/<%= event._id %>/register" method="POST">
-                  <button type="submit" class="btn btn-primary">Registrar-se para este evento</button>
+                <!-- Botão para registrar-se no evento -->
+                <form action="/events/<%= event._id %>/register" method="POST" class="float-right">
+                  <button type="submit" class="btn btn-primary btn-margin">Registrar-se para este evento</button>
                 </form>
               <% } %>
             <% } else { %>
-              <p>Para registrar-se neste evento, faça login.</p>
+              <!-- Mensagem de login necessário -->
+              <p>Para registrar-se neste evento, <a href="/login">faça login</a>.</p>
             <% } %>
           </div>
         </div>
@@ -46,9 +64,10 @@
     </div>
   </div>
 
-  <% include('vlibras.ejs') %>
+  <!-- Rodapé ou outros conteúdos incluídos -->
+  <%- include('vlibras.ejs') %>
   
-  <!-- Adicione o link para o JS do Bootstrap (opcional, apenas se você estiver usando componentes interativos do Bootstrap) -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Scripts do Bootstrap (opcional, dependendo do uso) -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
