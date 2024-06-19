@@ -164,7 +164,9 @@ exports.registerForEvent = async (req, res) => {
     event.participants.push({ user: userId });
     await event.save();
 
-    res.status(200).json({ message: 'Usuário registrado com sucesso para o evento' });
+    // Redirecionar o usuário de volta para a página do evento
+    res.redirect(`/events/${eventId}`);  // Substitua com a rota correta para a página de detalhes do evento
+
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
