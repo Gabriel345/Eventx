@@ -1,24 +1,23 @@
-<!-- navbar.ejs -->
-<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #638ecb;">
-  <div class="container"> <!-- Envolver todo o conteúdo da navbar em um container -->
-    <a class="navbar-brand d-flex align-items-center mr-auto" href="/"> <!-- Utilizar mr-auto para alinhar à esquerda -->
-      <span style="color: white;">Event</span>
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #1E90FF;">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center mr-auto" href="/">
+      <span style="color: white; font-size: 1.5rem;">Event</span> <!-- Aumentar o tamanho da fonte do texto -->
       <img src="/img/logo.png" width="70" height="70" class="d-inline-block align-top ml-2" alt="Logo">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto"> <!-- Utilizar ml-auto para alinhar à direita -->
+      <ul class="navbar-nav ml-auto">
         <li class="nav-item active mr-3">
-          <a class="nav-link" href="/" style="color: white;">Home <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="/" style="color: white; font-size: 1.2rem;">Home <span class="sr-only">(current)</span></a> <!-- Aumentar o tamanho da fonte do link -->
         </li>
         <% if (userId) { %>
           <li class="nav-item mr-3">
-            <a class="nav-link btn btn-primary" href="/events/create" role="button" style="color: white;">Criar evento</a>
+            <a class="nav-link btn btn-primary btn-lg" href="/events/create" role="button" style="color: white;">Criar evento</a> <!-- Utilizar btn-lg para aumentar o tamanho do botão -->
           </li>
           <li class="nav-item mr-3">
-            <a class="nav-link" href="/profile" style="color: white;">Perfil</a>
+            <a class="nav-link" href="/profile" style="color: white; font-size: 1.2rem;">Perfil</a> <!-- Aumentar o tamanho da fonte do link -->
           </li>
         <% } %>
 
@@ -26,15 +25,14 @@
 
         <% if (userId) { %>
           <li class="nav-item mr-3">
-            <a class="nav-link" href="/logout" style="color: white;">Logout</a>
+            <a class="nav-link" href="/logout" style="color: white; font-size: 1.2rem;">Logout</a> <!-- Aumentar o tamanho da fonte do link -->
           </li>
         <% } else { %>
           <li class="nav-item mr-3">
-            <a class="nav-link" href="/users/register" style="color: white;">Registrar</a>
+            <a class="nav-link" href="/users/register" style="color: white; font-size: 1.2rem;">Registrar</a> <!-- Aumentar o tamanho da fonte do link -->
           </li>
         <% } %>
       </ul>
     </div>
   </div>
 </nav>
-
