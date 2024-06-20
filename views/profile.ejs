@@ -7,9 +7,6 @@
   <!-- Adicionando Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="/stylesheets/style.css">
-  <style>
-    
-  </style>
 </head>
 <body>
   <%- include('navbar.ejs') %>
@@ -46,12 +43,14 @@
               <thead>
                 <tr>
                   <th>Título do Evento</th>
+                  <th>Link</th>
                 </tr>
               </thead>
               <tbody>
                 <% registeredEvents.forEach(event => { %>
                   <tr>
                     <td><%= event.title %></td>
+                    <td><a href="/events/<%= event._id %>" class="btn btn-info btn-sm">Ver Evento</a></td>
                   </tr>
                 <% }); %>
               </tbody>
@@ -65,6 +64,6 @@
   <!-- Adicionando Bootstrap JS e dependências -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://maxcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
