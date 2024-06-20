@@ -43,9 +43,6 @@
             
             <% if (userId) { %>
               <% if (event.participants.some(participant => participant.user.equals(userId))) { %>
-                <!-- Botão desabilitado se o usuário estiver registrado -->
-                <button type="button" class="btn btn-success btn-margin disabled float-right">Você está registrado neste evento</button>
-                <!-- Formulário para cancelar inscrição -->
                 <form action="/events/<%= event._id %>/unregister" method="POST" class="float-right">
                   <button type="submit" class="btn btn-danger btn-margin">Cancelar Inscrição</button>
                 </form>
