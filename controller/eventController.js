@@ -88,16 +88,32 @@ exports.renderEditEventPage = async (req, res) => {
 
 exports.editEvent = async (req, res) => {
   try {
-      // Encontre o evento pelo ID fornecido na rota e atualize suas informações com os dados do corpo da requisição
-      const updatedEvent = await Event.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const eventId = req.params.id;
+    const { title, type, description, date } = req.body;
+    let updatedData = {
+      title,
+      type,
+      description,
+      date
+    };
 
-      // Renderize a página de perfil ou redirecione para outra página após a edição
-      res.redirect('/profile');
+    // Verificar se há um novo arquivo de imagem enviado
+    if (req.file) {
+      const coverImagePath = path.relative(path.join(__dirname, '..', 'public', 'uploads'), req.file.path);
+      updatedData.coverImage = coverImagePath;
+    }
+
+    const updatedEvent = await Event.findByIdAndUpdate(eventId, updatedData, { new: true });
+
+    if (!updatedEvent) {
+      return res.status(404).json({ message: 'Evento não encontrado' });
+    }
+
+    res.redirect('/profile'); // Redireciona para a página de perfil ou outra página após a edição
   } catch (error) {
-      res.status(500).json({ message: error.message });
+    res.status(500).json({ message: error.message });
   }
 };
-
 exports.deleteEvent = async (req, res) => {
   try {
     const deletedEvent = await Event.findByIdAndDelete(req.params.id);
