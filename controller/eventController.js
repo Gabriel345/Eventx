@@ -218,3 +218,8 @@ exports.unregisterFromEvent = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+exports.renderCreateEventPage = (req, res) => {
+  const userId = req.session.userId; // Supondo que userId está disponível na sessão
+
+  res.render('create-event', { userId: userId });
+};

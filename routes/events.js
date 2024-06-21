@@ -7,7 +7,10 @@ router.get('/', EventController.getAllEvents);
 
 // Rota para exibir o formulário de criação de evento
 router.get('/create', (req, res, next) => {
-  res.render('create-event'); // Renderiza o formulário de criação de evento
+  const userId = req.session.userId; // Obtém o userId da sessão, assumindo que ele esteja configurado corretamente
+
+  // Renderiza o formulário de criação de evento e passa userId para a view
+  res.render('create-event', { userId: userId });
 });
 
 // Rota para lidar com o processo de criação de um novo evento
